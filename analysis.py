@@ -48,37 +48,51 @@ def get_average_scores(start_date, end_date, query):
             mean = totalSum / numComments
         else:
             mean = 0
-        scores.append(mean)
+        scores.append(round(mean, 3))
         num_positives.append(total_positives)
         num_negatives.append(total_negatives)
         num_neutrals.append(total_neutrals)
 
         dates.append(dateutil.parser.parse(start_date.isoformat()).strftime("%Y-%m-%d"))
-        print(start_date.isoformat(), mean, total_positives, total_neutrals, total_negatives, numComments)
+        print(start_date.isoformat(), round(mean,3), total_positives, total_neutrals, total_negatives, numComments)
 
         start_date += datetime.timedelta(days=5)
 
-    return (scores, dates, num_positives, num_negatives)
+    return (scores, dates, num_positives, num_neutrals, num_negatives)
+
+def sentiments():
+    start_date = datetime.datetime(2018,1,1,0,0,tzinfo=pytz.utc)
+    end_date = datetime.datetime(2018,8,25,tzinfo=pytz.utc)
+    scores, dates, pos, neut, neg = get_average_scores(start_date, end_date, "new reddit")
+    ret['new reddit'] = scores
+    ret['x1'] = dates
+
+    start_date = datetime.datetime(2018,1,1,0,0,tzinfo=pytz.utc)
+    end_date = datetime.datetime(2018,8,25,tzinfo=pytz.utc)
+    scores, dates, pos, neut, neg = get_average_scores(start_date, end_date, "new design")
+    ret['newDesign'] = scores
+
+    start_date = datetime.datetime(2018,1,1,0,0,tzinfo=pytz.utc)
+    end_date = datetime.datetime(2018,8,25,tzinfo=pytz.utc)
+    scores, dates, pos, neut, neg = get_average_scores(start_date, end_date, "redesign")
+    ret['redesign'] = scores
+    return ret
+
+def numberPosts(query):
+    start_date = datetime.datetime(2018,1,1,0,0,tzinfo=pytz.utc)
+    end_date = datetime.datetime(2018,8,25,tzinfo=pytz.utc)
+    scores, dates, pos, neut, neg = get_average_scores(start_date, end_date, query)
+    ret['x1'] = dates
+    ret['positive'] = pos
+    ret['neutral'] = neut
+    ret['negative'] = neg 
+
+    return ret
 
 # new reddit, new design, redesign, 
 
 if __name__ == "__main__":
     ret = {}
-    with open("compoundScores.json", "w") as f:
-        start_date = datetime.datetime(2018,1,1,0,0,tzinfo=pytz.utc)
-        end_date = datetime.datetime(2018,8,25,tzinfo=pytz.utc)
-        scores, dates, pos, neg = get_average_scores(start_date, end_date, "new reddit")
-        ret['x1'] = dates
-        ret['newReddit'] = scores
-
-        start_date = datetime.datetime(2018,1,1,0,0,tzinfo=pytz.utc)
-        end_date = datetime.datetime(2018,8,25,tzinfo=pytz.utc)
-        scores, dates, pos, neg = get_average_scores(start_date, end_date, "new design")
-        ret['newDesign'] = scores
-
-        start_date = datetime.datetime(2018,1,1,0,0,tzinfo=pytz.utc)
-        end_date = datetime.datetime(2018,8,25,tzinfo=pytz.utc)
-        scores, dates, pos, neg = get_average_scores(start_date, end_date, "redesign")
-        ret['redesign'] = scores
-
+    with open("searchTerms.json", "w") as f:
+        ret = sentiments()
         json.dump(ret, f)
