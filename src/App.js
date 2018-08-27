@@ -1,13 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
+import React, { Component } from 'react';
+import './App.css';
+import { Divider, Header, Button, Tab,Container } from 'semantic-ui-react'
 
-ReactDOM.render(<App />, document.getElementById('root'));
-//:registerServiceWorker();
-
-/*
 const panes = [
   { menuItem: 'Setiment Scores of Comments Mentioning Keywords:', pane: {key: 'tab1', content: (
       <div>
@@ -58,13 +52,17 @@ const panes = [
   )}},
 ]
 
-const ContainerExampleContainer = (
-  <Container>
-    <Divider hidden />
-    <Header as='h2'>Reddit Redesign Sentiment Analysis</Header>
-    <p>The redesign is pretty controversial. Here's Reddit's sentiments on it.</p>
-    <Tab menu={{ compact: true, stackable: true, pointing: true, attached: true}} panes={panes} renderActiveOnly={false}/>
-  </Container>
-)
+class App extends Component {
+  render() {
+    return (
+      <Container>
+        <Divider hidden />
+        <Header as='h2'>Reddit Redesign Sentiment Analysis</Header>
+        <p>The redesign is pretty controversial. Here's Reddit's sentiments on it.</p>
+        <Tab menu={{ compact: true, stackable: true, pointing: true, attached: true}} panes={panes} renderActiveOnly={false}/>
+      </Container>
+    )
+  }
+}
 
-ReactDOM.render(ContainerExampleContainer, document.getElementById('root'));*/
+export default App;
