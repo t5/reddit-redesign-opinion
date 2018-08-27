@@ -2,20 +2,6 @@ import requests, string, statistics, csv, json, datetime, pytz
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import dateutil.parser
 
-relevant_terms = ["new","reddit", "reddit's", "reddits"]
-# AND
-# website, redesign, design,
-
-def contains(words, query_terms):
-    # make lowercase, remove punctuation, split into words
-    # then compare
-    punctuation_table = str.maketrans({key: " " for key in string.punctuation})
-    # if any of the query terms are in the string, return true
-    for word in query_terms:
-        if word.lower() in words.lower().translate(punctuation_table).split():
-            return True
-    return False
-
 def get_comments(start_stamp, end_stamp, query):
     url = f"https://api.pushshift.io/reddit/search/comment/?q=\"{query}\"&fields=body&size=500&sort=desc&sort_type=score&after={start_stamp}&before={end_stamp}"
     print(url)
@@ -149,6 +135,22 @@ if __name__ == "__main__":
         json.dump(website, f)
     with open("newReddit.json", "w") as f:
         json.dump(newReddit, f)
+    """
+
+    """
+    with open("newReddit.json", "w") as f:
+        ret = numberPosts("new reddit")
+        json.dump(ret, f)
+    """
+
+    """
+    with open("newDesign.json", "w") as f:
+        ret = numberPosts("new design")
+        json.dump(ret, f)
+
+    with open("newWebsite.json", "w") as f:
+        ret = numberPosts("new website")
+        json.dump(ret, f)
     """
     with open("newReddit.json", "w") as f:
         ret = numberPosts("new reddit")

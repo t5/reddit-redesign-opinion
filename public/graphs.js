@@ -16,7 +16,7 @@ function reloadGraphs() {
         },
         bar: {
             width: {
-                ratio: 0.15
+                ratio: 0.13
             }
         },
         point: {
@@ -40,7 +40,7 @@ function reloadGraphs() {
                 }
             },
         },
-    });}
+    });
 
     redesign = c3.generate({
         bindto: '#redesign',
@@ -70,7 +70,7 @@ function reloadGraphs() {
         },
         bar: {
             width: {
-                ratio: 0.10
+                ratio: 0.13
             }
         },
         legend: {
@@ -97,8 +97,122 @@ function reloadGraphs() {
                 }
             },
         },
-    }    
-);
+    });
+
+    newDesign = c3.generate({
+        bindto: '#newDesign',
+        size: {
+            height: 350
+        },
+        data: {
+            xs: {
+                'positive': 'x1',
+                'neutral': 'x1',
+                'negative': 'x1',
+            },
+            colors: {
+                'positive': '#3b9926',
+                'neutral': '#1360c4',
+                'negative': '#d30c2a',
+            },
+            url: 'json/newDesign.json',
+            mimeType: 'json',
+            types: {
+                scores: 'line',
+            },
+            axes: {
+                scores: 'y',
+                avg: 'y'
+            }
+        },
+        bar: {
+            width: {
+                ratio: 0.13
+            }
+        },
+        legend: {
+            position: 'bottom'
+        },
+        point: {
+            show: false
+        },
+        axis: {
+            x: {
+                label: {
+                    text: 'Date',
+                },
+                type: 'timeseries',
+                tick: {
+                    format: '%Y-%m-%d',
+                    count: 6
+                },
+            },
+            y: {
+                label: {
+                    text: "Number of comments",
+                    position: "outer-middle"
+                }
+            },
+        },
+    });
+    
+    newReddit = c3.generate({
+        bindto: '#newReddit',
+        size: {
+            height: 350
+        },
+        data: {
+            xs: {
+                'positive': 'x1',
+                'neutral': 'x1',
+                'negative': 'x1',
+            },
+            colors: {
+                'positive': '#3b9926',
+                'neutral': '#1360c4',
+                'negative': '#d30c2a',
+            },
+            url: 'json/newReddit.json',
+            mimeType: 'json',
+            types: {
+                scores: 'line',
+            },
+            axes: {
+                scores: 'y',
+                avg: 'y'
+            }
+        },
+        bar: {
+            width: {
+                ratio: 0.13
+            }
+        },
+        legend: {
+            position: 'bottom'
+        },
+        point: {
+            show: false
+        },
+        axis: {
+            x: {
+                label: {
+                    text: 'Date',
+                },
+                type: 'timeseries',
+                tick: {
+                    format: '%Y-%m-%d',
+                    count: 6
+                },
+            },
+            y: {
+                label: {
+                    text: "Number of comments",
+                    position: "outer-middle"
+                }
+            },
+        },
+    });
+};
 
 function prepChartButton(id, graph_name) {
     document.getElementById(id).addEventListener("click", function() {
@@ -112,6 +226,18 @@ function prepRedesignButton(id, graph_name) {
     });
 }
 
+function prepNewDesignButton(id, graph_name) {
+    document.getElementById(id).addEventListener("click", function() {
+        newDesign.transform(graph_name);
+    });
+}
+
+function prepNewRedditButton(id, graph_name) {
+    document.getElementById(id).addEventListener("click", function() {
+        newReddit.transform(graph_name);
+    });
+}
+
 window.onload=function() {
     prepChartButton('line','line');
     prepChartButton('area', 'area');
@@ -122,5 +248,15 @@ window.onload=function() {
     prepRedesignButton('redesign_pie', 'pie');
     prepRedesignButton('redesign_bar', 'bar');
 
+    prepNewDesignButton('newDesign_line', 'line');
+    prepNewDesignButton('newDesign_pie', 'pie');
+    prepNewDesignButton('newDesign_bar', 'bar');
+
+    prepNewRedditButton('newReddit_line', 'line');
+    prepNewRedditButton('newReddit_pie', 'pie');
+    prepNewRedditButton('newReddit_bar', 'bar');
     reloadGraphs();
+  //  document.getElementsByClassName("menu")[0].addEventListener("click", function() {
+ //       reloadGraphs();
+  //  });
 }
