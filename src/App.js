@@ -87,6 +87,7 @@ class App extends Component {
           </a>{" "}
           of Reddit comments over time.
         </p>
+        <p>The VADER score runs from negative (-1) to neutral (0) to positive (+1).</p>
         <Tab
           menu={{
             compact: true,

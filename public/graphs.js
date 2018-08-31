@@ -37,6 +37,10 @@ function reloadGraphs() {
         label: {
           text: "Normalized, weighted composite sentiment score",
           position: "outer-middle"
+        },
+        min: 0,
+        padding: {
+          bottom: 0
         }
       },
     },
