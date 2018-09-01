@@ -4,7 +4,7 @@ import { Divider, Header, Button, Tab, Container } from "semantic-ui-react";
 
 const panes = [
   {
-    menuItem: "Average Setiment Scores of Comments Mentioning Keywords:",
+    menuItem: "Average Sentiment Scores of Comments Mentioning Keywords:",
     pane: {
       key: "tab1",
       content: (
